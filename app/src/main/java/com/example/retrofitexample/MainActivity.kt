@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     private fun beginSearch(srsearch: String) {
         disposable =
             wikiApiServe.hitCountCheck("query", "json", "search", srsearch)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+                .subscribeOn(Schedulers.io()) //Tell it to fetch the data on background by subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()) //Display data on main thread
+                .subscribe( //use subscribe to define an action on the result
                     { result -> result_count.text = "${result.query.searchinfo.totalhits} results found" },
                     { error -> Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show() }
                 )
